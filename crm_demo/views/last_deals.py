@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from crm_demo.constants import STAGE_RU
 from integration_utils.bitrix24.bitrix_user_auth.main_auth import main_auth
 
 
@@ -30,6 +32,10 @@ def last_active_deals(request):
         for field in [UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS, "TITLE", "STAGE_ID", "DATE_CREATE"]:
             if not deal_clean.get(field):
                 deal_clean[field] = "Отсутствует"
+
+        stage_code = deal_clean.get("STAGE_ID")
+        deal_clean["STAGE_ID"] = STAGE_RU.get(stage_code, stage_code or "Отсутствует")
+
         last_deals.append(deal_clean)
 
     context = {
