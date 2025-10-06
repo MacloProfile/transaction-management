@@ -26,8 +26,16 @@
     <p>
         <label for="id_opportunity">Сумма:</label>
         <input type="number" name="opportunity" id="id_opportunity" step="0.01" value="0.00" required>
-    </p>
     <p>
+        <label for="id_currency">Валюта:</label>
+        <select name="currency_id" id="id_currency" required>
+            {% for code, symbol in CURRENCY.items %}
+                <option value="{{ code }}" {% if code == "RUB" %}selected{% endif %}>
+                    {{ code }} ({{ symbol }})
+                </option>
+            {% endfor %}
+        </select>
+    </p>
         <label for="id_address">Адрес доставки:</label>
         <input type="text" name="address" id="id_address">
     </p>

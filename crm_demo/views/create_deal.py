@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from crm_demo.constants import STAGE_RU, UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS
+from crm_demo.constants import STAGE_RU, UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS, CURRENCY
 from integration_utils.bitrix24.bitrix_user_auth.main_auth import main_auth
 
 
@@ -10,6 +10,7 @@ def create_deal(request):
         stage_id = request.POST.get('stage_id')
         title = request.POST.get('title')
         opportunity = request.POST.get('opportunity')
+        currency = request.POST.get('currency_id')
         address = request.POST.get('address')
         description = request.POST.get('description')
 
@@ -17,6 +18,7 @@ def create_deal(request):
             'STAGE_ID': stage_id,
             'TITLE': title,
             'OPPORTUNITY': opportunity,
+            'CURRENCY_ID': currency,
             UF_FIELD_ADDRESS: address,
             UF_FIELD_DESCRIPTION: description
         }
@@ -30,8 +32,11 @@ def create_deal(request):
             return render(request, 'crm_demo/create_deal.html', {
                 'error': result.get('error_description', 'Ошибка создания сделки'),
                 'STAGE_RU': STAGE_RU,
+                'CURRENCY': CURRENCY
+
             })
 
     return render(request, 'crm_demo/create_deal.html', {
         'STAGE_RU': STAGE_RU,
+        'CURRENCY': CURRENCY
     })

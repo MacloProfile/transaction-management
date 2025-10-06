@@ -16,7 +16,8 @@ def last_active_deals(request):
                 "!STAGE_ID": ["WON", "LOSE", "APOLOGY"]
             },
             "order": {"DATE_CREATE": "DESC"},
-            "select": ["ID", "STAGE_ID", "TITLE", "OPPORTUNITY", "DATE_CREATE", UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS],
+            "select": ["ID", "STAGE_ID", "TITLE", "OPPORTUNITY", "CURRENCY_ID", "DATE_CREATE",
+                       UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS],
             "start": 0
         }
     )

@@ -23,11 +23,11 @@
                 <tr>
                     <td>{{ deal.ID }}</td>
                     <td>{{ deal.TITLE }}</td>
-                    <td>{{ deal.OPPORTUNITY }} ₽</td>
+                    <td>{{ deal.OPPORTUNITY }} {{ deal.CURRENCY_ID }}</td>
                     <td>{{ deal.STAGE_ID }}</td>
                     <td>{{ deal.DATE_CREATE }}</td>
-                    <td>{{ deal.address }}</td>
                     <td>{{ deal.description }}</td>
+                    <td>{{ deal.address }}</td>
                 </tr>
             {% endfor %}
         </tbody>
