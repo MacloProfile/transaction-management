@@ -6,3 +6,6 @@ STAGE_RU = {
     "WON": "Успешно",
     "LOSE": "Неудачно",
 }
+
+UF_FIELD_DESCRIPTION = "UF_CRM_1759742400"
+UF_FIELD_ADDRESS = "UF_CRM_1759496216132"

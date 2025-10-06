@@ -1,15 +1,12 @@
 from django.shortcuts import render
 
-from crm_demo.constants import STAGE_RU
+from crm_demo.constants import STAGE_RU, UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS
 from integration_utils.bitrix24.bitrix_user_auth.main_auth import main_auth
 
 
 @main_auth(on_cookies=True)
 def last_active_deals(request):
     bitrix_user_token = request.bitrix_user_token
-
-    UF_FIELD_DESCRIPTION = "UF_CRM_1759496216132"
-    UF_FIELD_ADDRESS = "UF_CRM_1759742400"
 
     response = bitrix_user_token.call_api_method(
         "crm.deal.list",
@@ -35,6 +32,8 @@ def last_active_deals(request):
 
         stage_code = deal_clean.get("STAGE_ID")
         deal_clean["STAGE_ID"] = STAGE_RU.get(stage_code, stage_code or "Отсутствует")
+        deal_clean["description"] = deal_clean.get(UF_FIELD_DESCRIPTION, "Отсутствует")
+        deal_clean["address"] = deal_clean.get(UF_FIELD_ADDRESS, "Отсутствует")
 
         last_deals.append(deal_clean)
 
