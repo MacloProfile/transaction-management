@@ -1,0 +1,41 @@
+{% extends 'crm_demo/base.html' %}
+
+{% block title %}Создать сделку{% endblock %}
+
+{% block content %}
+<h1>Создать сделку</h1>
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <p>
+        <label for="id_title">Название сделки:</label>
+        <input type="text" name="title" id="id_title" required>
+    </p>
+    <p>
+        <label for="id_stage">Стадия сделки:</label>
+        <select name="stage_id" id="id_stage" required>
+            {% for code, name in STAGE_RU.items %}
+                <option value="{{ code }}" {% if code == "PREPARATION" %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+        </select>
+    </p>
+    <p>
+        <label for="id_opportunity">Сумма:</label>
+        <input type="number" name="opportunity" id="id_opportunity" step="0.01" value="0.00" required>
+    </p>
+    <p>
+        <label for="id_address">Адрес доставки:</label>
+        <input type="text" name="address" id="id_address">
+    </p>
+    <p>
+        <label for="id_description">Описание:</label>
+        <textarea name="description" id="id_description"></textarea>
+    </p>
+    <button type="submit" class="button">Создать</button>
+</form>
+
+{% endblock %}
