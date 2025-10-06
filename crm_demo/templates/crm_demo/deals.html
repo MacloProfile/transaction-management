@@ -1,0 +1,36 @@
+{% extends 'crm_demo/base.html' %}
+
+{% block title %}Последние сделки{% endblock %}
+
+{% block content %}
+<h1>Последние активные сделки</h1>
+
+{% if last_deals %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Стадия</th>
+                <th>Дата создания</th>
+                <th>Описание</th>
+                <th>Адрес доставки</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for deal in last_deals %}
+                <tr>
+                    <td>{{ deal.ID }}</td>
+                    <td>{{ deal.TITLE }}</td>
+                    <td>{{ deal.STAGE_ID }}</td>
+                    <td>{{ deal.DATE_CREATE }}</td>
+                    <td>{{ deal.UF_CRM_1759496216132 }}</td>
+                    <td>{{ deal.UF_CRM_1759742400 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>У вас пока нет активных сделок.</p>
+{% endif %}
+{% endblock %}

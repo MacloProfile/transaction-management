@@ -1,0 +1,40 @@
+from django.shortcuts import render
+from integration_utils.bitrix24.bitrix_user_auth.main_auth import main_auth
+
+
+@main_auth(on_cookies=True)
+def last_active_deals(request):
+    bitrix_user_token = request.bitrix_user_token
+
+    UF_FIELD_DESCRIPTION = "UF_CRM_1759496216132"
+    UF_FIELD_ADDRESS = "UF_CRM_1759742400"
+
+    response = bitrix_user_token.call_api_method(
+        "crm.deal.list",
+        {
+            "filter": {
+                "ASSIGNED_BY_ID": request.bitrix_user.id,
+                "!STAGE_ID": ["WON", "LOSE"]
+            },
+            "order": {"DATE_CREATE": "DESC"},
+            "select": ["ID", "STAGE_ID", "TITLE", "DATE_CREATE", UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS],
+            "start": 0
+        }
+    )
+
+    last_deals_raw = response.get("result", [])[:10]
+
+    last_deals = []
+    for deal in last_deals_raw:
+        deal_clean = deal.copy()
+        for field in [UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS, "TITLE", "STAGE_ID", "DATE_CREATE"]:
+            if not deal_clean.get(field):
+                deal_clean[field] = "Отсутствует"
+        last_deals.append(deal_clean)
+
+    context = {
+        "user": getattr(request, "bitrix_user", None),
+        "last_deals": last_deals,
+    }
+
+    return render(request, "crm_demo/deals.html", context)
