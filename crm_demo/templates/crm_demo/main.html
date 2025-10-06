@@ -6,7 +6,5 @@
 
 <h1>Привет, {% if user %}{{ user.first_name }} {{ user.last_name }}{% else %}Гость{% endif %}!</h1>
 <p>Добро пожаловать в ваше локальное приложение Битрикс24.</p>
-<a href="{% url 'deals' %}" class="button">Показать последние сделки</a>
-<a href="{% url 'create_deal' %}" class="button">Создать сделку</a>
 
 {% endblock %}

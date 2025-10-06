@@ -13,3 +13,12 @@ def start(request):
     }
 
     return render(request, 'crm_demo/main.html', context)
+
+
+@main_auth(on_cookies=True)
+def main_menu(request):
+    bitrix_user = getattr(request, 'bitrix_user', None)
+    context = {
+        'user': bitrix_user
+    }
+    return render(request, 'crm_demo/main.html', context)
