@@ -16,7 +16,7 @@ def last_active_deals(request):
                 "!STAGE_ID": ["WON", "LOSE", "APOLOGY"]
             },
             "order": {"DATE_CREATE": "DESC"},
-            "select": ["ID", "STAGE_ID", "TITLE", "OPPORTUNITY", "CURRENCY_ID", "DATE_CREATE",
+            "select": ["ID", "STAGE_ID", "TITLE", "OPPORTUNITY", "CURRENCY_ID", "DATE_CREATE", "CLOSEDATE",
                        UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS],
             "start": 0
         }
@@ -27,7 +27,7 @@ def last_active_deals(request):
     last_deals = []
     for deal in last_deals_raw:
         deal_clean = deal.copy()
-        for field in [UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS, "TITLE", "STAGE_ID", "DATE_CREATE"]:
+        for field in [UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS, "TITLE", "STAGE_ID", "DATE_CREATE", "CLOSEDATE"]:
             if not deal_clean.get(field):
                 deal_clean[field] = "Отсутствует"
 

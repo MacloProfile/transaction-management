@@ -11,6 +11,7 @@ def create_deal(request):
         title = request.POST.get('title')
         opportunity = request.POST.get('opportunity')
         currency = request.POST.get('currency_id')
+        closedate = request.POST.get('closedate')
         address = request.POST.get('address')
         description = request.POST.get('description')
 
@@ -19,6 +20,7 @@ def create_deal(request):
             'TITLE': title,
             'OPPORTUNITY': opportunity,
             'CURRENCY_ID': currency,
+            'CLOSEDATE': closedate,
             UF_FIELD_ADDRESS: address,
             UF_FIELD_DESCRIPTION: description
         }

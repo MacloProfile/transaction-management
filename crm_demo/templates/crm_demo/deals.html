@@ -1,5 +1,5 @@
 {% extends 'crm_demo/base.html' %}
-
+{% load date_filters %}
 {% block title %}Последние сделки{% endblock %}
 
 {% block content %}
@@ -13,7 +13,8 @@
                 <th>Название</th>
                 <th>Сумма</th>
                 <th>Стадия</th>
-                <th>Дата создания</th>
+                <th>Дата создания (по Мск)</th>
+                <th>Дата завершения (по Мск)</th>
                 <th>Описание</th>
                 <th>Адрес доставки</th>
             </tr>
@@ -25,7 +26,8 @@
                     <td>{{ deal.TITLE }}</td>
                     <td>{{ deal.OPPORTUNITY }} {{ deal.CURRENCY_ID }}</td>
                     <td>{{ deal.STAGE_ID }}</td>
-                    <td>{{ deal.DATE_CREATE }}</td>
+                    <td>{{ deal.DATE_CREATE | format_time_to_msk }}</td>
+                    <td>{{ deal.CLOSEDATE | format_time_to_msk }}</td>
                     <td>{{ deal.description }}</td>
                     <td>{{ deal.address }}</td>
                 </tr>

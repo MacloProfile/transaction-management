@@ -36,6 +36,17 @@
             {% endfor %}
         </select>
     </p>
+    <p>
+        <label for="id_closedate">Срок доставки:</label>
+        <input type="date" name="closedate" id="id_closedate" required>
+    </p>
+
+    <script>
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('id_closedate').setAttribute('min', today);
+    </script>
+
+    <p>
         <label for="id_address">Адрес доставки:</label>
         <input type="text" name="address" id="id_address">
     </p>
@@ -45,5 +56,6 @@
     </p>
     <button type="submit" class="button">Создать</button>
 </form>
+
 
 {% endblock %}
