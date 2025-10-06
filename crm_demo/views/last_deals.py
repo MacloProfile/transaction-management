@@ -14,10 +14,10 @@ def last_active_deals(request):
         {
             "filter": {
                 "ASSIGNED_BY_ID": request.bitrix_user.id,
-                "!STAGE_ID": ["WON", "LOSE"]
+                "!STAGE_ID": ["WON", "LOSE", "APOLOGY"]
             },
             "order": {"DATE_CREATE": "DESC"},
-            "select": ["ID", "STAGE_ID", "TITLE", "DATE_CREATE", UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS],
+            "select": ["ID", "STAGE_ID", "TITLE", "OPPORTUNITY", "DATE_CREATE", UF_FIELD_DESCRIPTION, UF_FIELD_ADDRESS],
             "start": 0
         }
     )
