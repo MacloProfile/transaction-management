@@ -37,9 +37,9 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <a href="{% url 'main_menu' %}" class="button">Главное меню</a>
-    <a href="{% url 'deals' %}" class="button">Показать последние сделки</a>
-    <a href="{% url 'create_deal' %}" class="button">Создать сделку</a>
+    <a href="{% url 'core:main_menu' %}" class="button">Главное меню</a>
+    <a href="{% url 'crm_deals:deals' %}" class="button">Показать последние сделки</a>
+    <a href="{% url 'crm_deals:create_deal' %}" class="button">Создать сделку</a>
 
     {% block content %}{% endblock %}
 </body>

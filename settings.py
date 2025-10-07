@@ -20,7 +20,8 @@ INSTALLED_APPS = [
     'integration_utils.bitrix24',
     'integration_utils.its_utils.app_gitpull',
 
-    "crm_demo",
+    "core",
+    "crm_demo"
 ]
 
 

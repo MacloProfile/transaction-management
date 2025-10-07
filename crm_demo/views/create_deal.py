@@ -29,7 +29,7 @@ def create_deal(request):
         result = bitrix.call_api_method('crm.deal.add', {'fields': fields})
 
         if result.get('result'):
-            return redirect('deals')
+            return redirect('crm_deals:deals')
         else:
             return render(request, 'crm_demo/create_deal.html', {
                 'error': result.get('error_description', 'Ошибка создания сделки'),

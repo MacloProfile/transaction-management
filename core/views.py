@@ -12,7 +12,7 @@ def start(request):
         'app_settings': settings.APP_SETTINGS,
     }
 
-    return render(request, 'crm_demo/main.html', context)
+    return render(request, 'core/menu.html', context)
 
 
 @main_auth(on_cookies=True)
@@ -21,4 +21,4 @@ def main_menu(request):
     context = {
         'user': bitrix_user
     }
-    return render(request, 'crm_demo/main.html', context)
+    return render(request, 'core/menu.html', context)
