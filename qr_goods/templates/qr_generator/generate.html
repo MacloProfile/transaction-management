@@ -14,6 +14,21 @@
     </div>
 
     <h1>Создание QR-кода для товара</h1>
+
+    {% if error %}
+      <div class="error-message" style="
+          border: 2px solid #ff4d4f;
+          background-color: #fff1f0;
+          color: #a8071a;
+          padding: 10px 15px;
+          border-radius: 8px;
+          margin-top: 10px;
+          font-weight: 500;
+      ">
+        ❗️ {{ error }}
+      </div>
+    {% endif %}
+
     <form method="post" autocomplete="off">
         {% csrf_token %}
         <label for="product_input">Выберите товар:</label>
