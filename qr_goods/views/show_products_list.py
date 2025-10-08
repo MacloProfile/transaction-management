@@ -18,7 +18,7 @@ def show_products(request):
 
     products = products_response.get("result", [])
 
-    paginator = Paginator(products, 1)
+    paginator = Paginator(products, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
