@@ -1,39 +1,9 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
-            background: #f9fafb;
-        }
-        h1 { color: #333; }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            background: white;
-            box-shadow: 0 0 8px rgba(0,0,0,0.1);
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px 14px;
-            text-align: left;
-        }
-        th { background-color: #f3f4f6; }
-        tr:nth-child(even) { background-color: #fafafa; }
-        a.button {
-            display: inline-block;
-            padding: 8px 14px;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            margin-bottom: 15px;
-        }
-        a.button:hover { background: #1d4ed8; }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
     {% block extra_head %}{% endblock %}
 </head>
 <body>
