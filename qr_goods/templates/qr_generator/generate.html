@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Генерация QR</title>
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+</head>
+<body>
+    <main>
+        <a href="{% url 'core:main_menu' %}" class="button">Главное меню</a>
+
+        <h1>Создание QR-кода для товара</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="product_id">Выберите товар:</label>
+            <select name="product_id" id="product_id" required>
+                <option value="">-- выберите товар --</option>
+                {% for p in products %}
+                    <option value="{{ p.ID }}">{{ p.NAME }} ({{ p.PRICE }} {{ p.CURRENCY_ID }})</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="but">Создать QR</button>
+        </form>
+
+        {% if qr_base64 %}
+        <div class="qr-box" style="margin-top: 30px;">
+            <h2>{{ product.NAME }}</h2>
+            <p><b>Цена:</b> {{ product.PRICE }} {{ product.CURRENCY_ID }}</p>
+            <img src="data:image/png;base64,{{ qr_base64 }}" alt="QR код товара" style="max-width: 250px; margin: 15px 0;">
+            <p><b>Ссылка:</b> <a href="{{ qr_link }}" target="_blank">{{ qr_link }}</a></p>
+        </div>
+        {% endif %}
+    </main>
+
+</body>
+</html>

@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from integration_utils.iu_logger.classes.mute_logger import MuteLogger
 from local_settings import DOMAIN, APP_SETTINGS, DATABASES, DEBUG, ALLOWED_HOSTS
@@ -21,7 +22,8 @@ INSTALLED_APPS = [
     'integration_utils.its_utils.app_gitpull',
 
     "core",
-    "crm_demo"
+    "crm_demo",
+    "qr_goods"
 ]
 
 
