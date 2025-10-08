@@ -17,7 +17,7 @@ class QRToken(models.Model):
 
     def is_valid(self):
         if self.expires_at:
-            return timezone.now() <= self.expires_at
+            return self.expires_at.date() >= timezone.now().date()
         return True
 
     def get_absolute_url(self):

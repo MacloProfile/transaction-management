@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.utils import timezone
 
 from local_settings import APP_SETTINGS
 from qr_goods.models.qr_model import QRToken
@@ -10,8 +9,7 @@ def product_by_token(request, token):
     if not qr_token:
         return render(request, "qr_generator/not_found.html")
 
-    today = timezone.now().date()
-    if qr_token.expires_at.date() < today:
+    if not qr_token.is_valid():
         return render(request, "qr_generator/expired.html", {
             "product_name": qr_token.name
         })
