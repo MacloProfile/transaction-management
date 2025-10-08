@@ -9,9 +9,7 @@
 </head>
 <body>
 <main>
-    <div class="nav-buttons">
-        <a href="{% url 'core:main_menu' %}" class="button">Главное меню</a>
-    </div>
+    {% include "qr_generator/includes/base.html" %}
 
     <h1>Создание QR-кода для товара</h1>
 
