@@ -13,10 +13,10 @@
         {% endif %}
         <h1>{{ product.name }}</h1>
         {% if product.price %}
-            <div class="price">{{ product.price }} {{ product.currency }}</div>
+            <div class="price">Цена: {{ product.price }} {{ product.currency }}</div>
         {% endif %}
         {% if product.description %}
-            <div class="description">{{ product.description }}</div>
+            <div class="description">Описание: {{ product.description }}</div>
         {% endif %}
     </div>
 </body>

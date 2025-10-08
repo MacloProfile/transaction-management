@@ -36,6 +36,7 @@ def generate_qr(request):
             name=product["NAME"],
             description=product["DESCRIPTION"],
             price=product["PRICE"],
+            currency=product["CURRENCY_ID"],
             image_url=product['PROPERTY_44'][0]['value']['downloadUrl']
         )
 
@@ -56,5 +57,6 @@ def generate_qr(request):
     )
 
     products = products_response.get("result", [])
+    print(products)
 
     return render(request, "qr_generator/generate.html", {"products": products})

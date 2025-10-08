@@ -16,7 +16,8 @@ def product_by_token(request, token):
         "product": {
             "name": qr_token.name,
             "price": qr_token.price,
-            "description": qr_token.description,
+            "currency": qr_token.currency,
+            "description": qr_token.description
         },
         "image": image_link,
     }
