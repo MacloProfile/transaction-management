@@ -8,52 +8,51 @@
     <link rel="stylesheet" href="{% static 'css/qr_generator.css' %}">
 </head>
 <body>
-<main>
-    {% include "qr_generator/includes/base.html" %}
+{% include "qr_generator/includes/base.html" %}
+    <main>
+        <h1>Создание QR-кода для товара</h1>
 
-    <h1>Создание QR-кода для товара</h1>
+        {% if error %}
+          <div class="error-message" style="
+              border: 2px solid #ff4d4f;
+              background-color: #fff1f0;
+              color: #a8071a;
+              padding: 10px 15px;
+              border-radius: 8px;
+              margin-top: 10px;
+              font-weight: 500;
+          ">
+            ❗️ {{ error }}
+          </div>
+        {% endif %}
 
-    {% if error %}
-      <div class="error-message" style="
-          border: 2px solid #ff4d4f;
-          background-color: #fff1f0;
-          color: #a8071a;
-          padding: 10px 15px;
-          border-radius: 8px;
-          margin-top: 10px;
-          font-weight: 500;
-      ">
-        ❗️ {{ error }}
-      </div>
-    {% endif %}
+        <form method="post" autocomplete="off">
+            {% csrf_token %}
+            <label for="product_input">Выберите товар:</label>
+            <div class="autocomplete" style="margin-bottom: 15px;">
+                <input type="text" id="product_input" class="autocomplete-input" placeholder="Начните вводить название товара..." required>
+                <input type="hidden" name="product_id" id="product_id">
+                <div id="autocomplete-list" class="autocomplete-items"></div>
+            </div>
 
-    <form method="post" autocomplete="off">
-        {% csrf_token %}
-        <label for="product_input">Выберите товар:</label>
-        <div class="autocomplete" style="margin-bottom: 15px;">
-            <input type="text" id="product_input" class="autocomplete-input" placeholder="Начните вводить название товара..." required>
-            <input type="hidden" name="product_id" id="product_id">
-            <div id="autocomplete-list" class="autocomplete-items"></div>
+            <div style="margin-bottom: 15px;">
+                <label for="valid_until">Ссылка действительна до:</label>
+                <input type="date" id="valid_until" name="valid_until" required>
+            </div>
+
+            <button type="submit" class="but">Создать QR</button>
+        </form>
+
+        {% if qr_base64 %}
+        <div class="qr-box">
+            <h2>{{ product.NAME }}</h2>
+            <p><b>Цена:</b> {{ product.PRICE }} {{ product.CURRENCY_ID }}</p>
+            <img src="data:image/png;base64,{{ qr_base64 }}" alt="QR код товара">
+            <p><b>Ссылка:</b> <a href="{{ qr_link }}" target="_blank">{{ qr_link }}</a></p>
+            <p><b>Действительна до:</b> {{ valid_until }}</p>
         </div>
-
-        <div style="margin-bottom: 15px;">
-            <label for="valid_until">Ссылка действительна до:</label>
-            <input type="date" id="valid_until" name="valid_until" required>
-        </div>
-
-        <button type="submit" class="but">Создать QR</button>
-    </form>
-
-    {% if qr_base64 %}
-    <div class="qr-box">
-        <h2>{{ product.NAME }}</h2>
-        <p><b>Цена:</b> {{ product.PRICE }} {{ product.CURRENCY_ID }}</p>
-        <img src="data:image/png;base64,{{ qr_base64 }}" alt="QR код товара">
-        <p><b>Ссылка:</b> <a href="{{ qr_link }}" target="_blank">{{ qr_link }}</a></p>
-        <p><b>Действительна до:</b> {{ valid_until }}</p>
-    </div>
-    {% endif %}
-</main>
+        {% endif %}
+    </main>
 
 <script>
 const products = [
