@@ -1,0 +1,131 @@
+main {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-radius: 8px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #1f2937;
+    text-align: center;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input[list] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.but {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.but:hover {
+    background: #1d4ed8;
+}
+
+.qr-box {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    background: #f9fafb;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.qr-box img {
+    margin: 15px 0;
+    max-width: 250px;
+}
+
+.qr-box h2 {
+    margin-bottom: 10px;
+    color: #1f2937;
+}
+
+.qr-box p {
+    margin-bottom: 5px;
+    color: #374151;
+}
+
+.qr-box a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.qr-box a:hover {
+    text-decoration: underline;
+}
+
+.nav-buttons {
+    margin-bottom: 30px;
+}
+
+.nav-buttons .button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+/* === Автокомплит === */
+.autocomplete {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.autocomplete-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.autocomplete-items {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 0 0 8px 8px;
+}
+
+.autocomplete-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.autocomplete-item:hover, .autocomplete-active {
+    background-color: #f0f0f0;
+}
+
+.highlight {
+    font-weight: bold;
+    color: #007bff;
+}

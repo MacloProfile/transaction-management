@@ -5,33 +5,73 @@
     <meta charset="UTF-8">
     <title>Генерация QR</title>
     <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/qr_generator.css' %}">
 </head>
 <body>
-    <main>
+<main>
+    <div class="nav-buttons">
         <a href="{% url 'core:main_menu' %}" class="button">Главное меню</a>
+    </div>
 
-        <h1>Создание QR-кода для товара</h1>
-        <form method="post">
-            {% csrf_token %}
-            <label for="product_id">Выберите товар:</label>
-            <select name="product_id" id="product_id" required>
-                <option value="">-- выберите товар --</option>
-                {% for p in products %}
-                    <option value="{{ p.ID }}">{{ p.NAME }} ({{ p.PRICE }} {{ p.CURRENCY_ID }})</option>
-                {% endfor %}
-            </select>
-            <button type="submit" class="but">Создать QR</button>
-        </form>
-
-        {% if qr_base64 %}
-        <div class="qr-box" style="margin-top: 30px;">
-            <h2>{{ product.NAME }}</h2>
-            <p><b>Цена:</b> {{ product.PRICE }} {{ product.CURRENCY_ID }}</p>
-            <img src="data:image/png;base64,{{ qr_base64 }}" alt="QR код товара" style="max-width: 250px; margin: 15px 0;">
-            <p><b>Ссылка:</b> <a href="{{ qr_link }}" target="_blank">{{ qr_link }}</a></p>
+    <h1>Создание QR-кода для товара</h1>
+    <form method="post" autocomplete="off">
+        {% csrf_token %}
+        <label for="product_input">Выберите товар:</label>
+        <div class="autocomplete">
+            <input type="text" id="product_input" class="autocomplete-input" placeholder="Начните вводить название товара..." required>
+            <input type="hidden" name="product_id" id="product_id">
+            <div id="autocomplete-list" class="autocomplete-items"></div>
         </div>
-        {% endif %}
-    </main>
+        <button type="submit" class="but">Создать QR</button>
+    </form>
 
+    {% if qr_base64 %}
+    <div class="qr-box">
+        <h2>{{ product.NAME }}</h2>
+        <p><b>Цена:</b> {{ product.PRICE }} {{ product.CURRENCY_ID }}</p>
+        <img src="data:image/png;base64,{{ qr_base64 }}" alt="QR код товара">
+        <p><b>Ссылка:</b> <a href="{{ qr_link }}" target="_blank">{{ qr_link }}</a></p>
+    </div>
+    {% endif %}
+</main>
+
+<script>
+const products = [
+    {% for p in products %}
+    { id: '{{ p.ID }}', name: '{{ p.NAME }}', price: '{{ p.PRICE }}', currency: '{{ p.CURRENCY_ID }}' },
+    {% endfor %}
+];
+
+const input = document.getElementById('product_input');
+const hiddenInput = document.getElementById('product_id');
+const list = document.getElementById('autocomplete-list');
+
+input.addEventListener('input', function() {
+    const val = this.value.toLowerCase();
+    list.innerHTML = '';
+    hiddenInput.value = '';
+    if (!val) return;
+
+    const filtered = products.filter(p => p.name.toLowerCase().includes(val));
+    filtered.forEach(p => {
+        const item = document.createElement('div');
+        item.classList.add('autocomplete-item');
+        const regex = new RegExp(`(${val})`, 'gi');
+        item.innerHTML = `${p.name.replace(regex, '<span class="highlight">$1</span>')} (${p.price} ${p.currency})`;
+        item.addEventListener('click', () => {
+            input.value = p.name;
+            hiddenInput.value = p.id;
+            list.innerHTML = '';
+        });
+        list.appendChild(item);
+    });
+});
+
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.autocomplete')) {
+        list.innerHTML = '';
+    }
+});
+</script>
 </body>
 </html>
