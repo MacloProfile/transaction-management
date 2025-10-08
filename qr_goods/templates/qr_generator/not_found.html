@@ -1,2 +1,15 @@
-<h2>❌ Товар не найден</h2>
-<p>Похоже, этот товар был удалён из CRM.</p>
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Товар не найден</title>
+    <link rel="stylesheet" href="{% static 'css/error.css' %}">
+</head>
+<body>
+    <div class="error-container">
+        <h2>❌ Товар не найден</h2>
+        <p>Похоже, этот товар был удалён из CRM.</p>
+    </div>
+</body>
+</html>

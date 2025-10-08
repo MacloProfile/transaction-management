@@ -1,5 +1,7 @@
 import base64
 import uuid
+from datetime import datetime
+from django.utils import timezone
 
 from django.shortcuts import render
 
@@ -25,10 +27,25 @@ def generate_qr(request):
 
     if request.method == "POST":
         product_id = request.POST.get("product_id")
+        valid_until_str = request.POST.get("valid_until")
 
         if not product_id:
             return render(request, "qr_generator/generate.html",
                           {"error": "Товар не найден", "products": products})
+
+        if not valid_until_str:
+            return render(request, "qr_generator/generate.html", {
+                "error": "Укажите дату, до которой будет действовать ссылка",
+                "products": products
+            })
+
+        try:
+            expires_at = timezone.make_aware(datetime.strptime(valid_until_str, "%Y-%m-%d"))
+        except ValueError:
+            return render(request, "qr_generator/generate.html", {
+                "error": "Некорректный формат даты",
+                "products": products
+            })
 
         response = bitrix_token.call_api_method(
             "crm.product.get",
@@ -49,7 +66,8 @@ def generate_qr(request):
             description=product["DESCRIPTION"],
             price=product["PRICE"],
             currency=product["CURRENCY_ID"],
-            image_url=product['PROPERTY_44'][0]['value']['downloadUrl']
+            image_url=product['PROPERTY_44'][0]['value']['downloadUrl'],
+            expires_at=expires_at
         )
 
         return render(request, "qr_generator/generate.html", {
@@ -57,7 +75,8 @@ def generate_qr(request):
             "product": product,
             "token": token,
             "qr_link": qr_link,
-            "qr_base64": qr_base64
+            "qr_base64": qr_base64,
+            "valid_until": expires_at.date()
         })
 
     return render(request, "qr_generator/generate.html", {"products": products})

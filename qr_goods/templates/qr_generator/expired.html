@@ -1,2 +1,15 @@
-<h2>⏰ Срок действия ссылки истёк</h2>
-<p>Эта ссылка на товар больше недействительна.</p>
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Срок действия ссылки истёк</title>
+    <link rel="stylesheet" href="{% static 'css/error.css' %}">
+</head>
+<body>
+    <div class="error-container">
+        <h2>⏰ Срок действия ссылки истёк</h2>
+        <p>Эта ссылка на товар больше недействительна.</p>
+    </div>
+</body>
+</html>
