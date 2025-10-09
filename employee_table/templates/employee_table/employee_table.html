@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица сотрудников</title>
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+</head>
+<body>
+    <h1>Таблица сотрудников</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Сотрудник</th>
+                <th>Руководители</th>
+                <th>Звонки за 24 часа</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in table_data %}
+            <tr>
+                <td class="clickable" onclick="openEmployeeSlider({{ row.employee_id }})">{{ row.employee_name }}</td>
+                <td>{{ row.managers_chain|default:"-" }}</td>
+                <td class="calls">{{ row.calls_last_24h }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
