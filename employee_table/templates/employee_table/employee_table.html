@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Таблица сотрудников</title>
     <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    <style>
+        .clickable {
+            color: #2563eb;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .clickable:hover {
+            color: #1d4ed8;
+        }
+        .calls {
+            font-weight: bold;
+            color: #10b981;
+        }
+    </style>
 </head>
 <body>
     <h1>Таблица сотрудников</h1>
@@ -28,5 +42,20 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <script src="https://unpkg.com/@bitrix24/b24jssdk@latest/dist/umd/index.min.js"></script>
+    <script>
+        async function openEmployeeSlider(userId) {
+            try {
+                const $b24 = await B24Js.initializeB24Frame();
+                $b24.slider.openPath(
+                    $b24.slider.getUrl(`/company/personal/user/${userId}/`),
+                    800
+                );
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    </script>
 </body>
 </html>

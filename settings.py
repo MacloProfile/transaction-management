@@ -23,7 +23,8 @@ INSTALLED_APPS = [
 
     "core",
     "crm_demo",
-    "qr_goods"
+    "qr_goods",
+    "employee_table"
 ]
 
 
@@ -41,7 +42,7 @@ ROOT_URLCONF = "urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'crm_demo', 'templates')],
+        "DIRS": [os.path.join(BASE_DIR, 'employee_table', 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
