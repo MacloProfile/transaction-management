@@ -22,11 +22,11 @@
 
 {% block content %}
     <h1>Таблица сотрудников</h1>
-
     <table>
         <thead>
             <tr>
                 <th>Сотрудник</th>
+                <th>Департамент</th>
                 <th>Руководители</th>
                 <th>Звонки за 24 часа</th>
             </tr>
@@ -35,6 +35,7 @@
             {% for row in table_data %}
             <tr>
                 <td class="clickable" onclick="openEmployeeSlider({{ row.employee_id }})">{{ row.employee_name }}</td>
+                <td>{{ row.departments|default:"-" }}</td>
                 <td>{{ row.managers_chain|default:"-" }}</td>
                 <td class="calls">{{ row.calls_last_24h }}</td>
             </tr>
