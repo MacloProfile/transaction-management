@@ -24,7 +24,8 @@ INSTALLED_APPS = [
     "core",
     "crm_demo",
     "qr_goods",
-    "employee_table"
+    "employee_table",
+    "companies_on_map"
 ]
 
 

@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+
+    <title>Карта компаний</title>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <link rel="stylesheet" href="{% static 'map/style.css' %}">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #map { width: 100%; height: 600px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+        .balloon-content { text-align: center; }
+        .balloon-content img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <header class="header-bar">
+        <a href="{% url 'core:main_menu' %}" class="button">Главное меню</a>
+        <div class="header-text">
+            <h1>Карта компаний</h1>
+        </div>
+    </header>
+
+    <div id="map"></div>
+
+    {{ points|json_script:"points-data" }}
+
+    <script type="text/javascript">
+        const points = JSON.parse(document.getElementById('points-data').textContent);
+
+        ymaps.ready(function() {
+            const map = new ymaps.Map("map", {
+                center: [55.751574, 37.573856],
+                zoom: 9,
+                controls: ['zoomControl', 'searchControl']
+            });
+
+            points.forEach(point => {
+                const balloonContent = `
+                    <div class="balloon-content">
+                        ${point.logoURL ? `<img src="${point.logoURL}" alt="logo"><br>` : ''}
+                        <strong>${point.title}</strong><br>
+                        ${point.address}
+                    </div>
+                `;
+                const placemark = new ymaps.Placemark(point.coords, { balloonContent });
+                map.geoObjects.add(placemark);
+            });
+        });
+    </script>
+</body>
+</html>
