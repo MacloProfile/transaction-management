@@ -31,7 +31,7 @@ def create_deal(request):
         if result.get('result'):
             return redirect('crm_deals:deals')
         else:
-            return render(request, 'crm_demo/create_deal.html', {
+            return render(request, 'employee_table/create_deal.html', {
                 'error': result.get('error_description', 'Ошибка создания сделки'),
                 'STAGE_RU': STAGE_RU,
                 'CURRENCY': CURRENCY
