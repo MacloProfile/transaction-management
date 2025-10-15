@@ -10,10 +10,10 @@ from integration_utils.bitrix24.bitrix_user_auth.main_auth import main_auth
 def get_employee_table(request):
     bitrix_user_token = request.bitrix_user_token
 
-    users_dict, managers_by_dep = get_employees_by_api(bitrix_user_token=bitrix_user_token)
+    users_dict, managers_by_dep, departments = get_employees_by_api(bitrix_user_token=bitrix_user_token)
 
     calls_count_by_user = get_calls_by_api(bitrix_user_token)
 
-    table_data = generate_table_data(users_dict, managers_by_dep, calls_count_by_user)
+    table_data = generate_table_data(users_dict, managers_by_dep, calls_count_by_user, departments)
 
     return render(request, "employee_table/employee_table.html", {"table_data": table_data})

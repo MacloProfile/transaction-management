@@ -29,4 +29,4 @@ def get_employees_by_api(bitrix_user_token):
                 "name": dep_name
             })
 
-    return users_dict, managers_by_dep
+    return users_dict, managers_by_dep, departments
