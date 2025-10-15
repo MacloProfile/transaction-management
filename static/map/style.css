@@ -1,12 +1,12 @@
 .header-bar {
-    position: relative;          /* для абсолютной кнопки */
+    position: relative;
     padding: 20px 0;
-    background-color: #f5f5f5;   /* светлый фон */
+    background-color: #f5f5f5;
     border-radius: 8px;
     margin-bottom: 20px;
-    text-align: center;          /* центрируем заголовок */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* лёгкая тень */
-    color: #333;                 /* текст темнее */
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    color: #333;
 }
 
 .header-bar .button {

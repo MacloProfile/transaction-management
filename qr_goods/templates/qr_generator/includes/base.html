@@ -1,5 +1,16 @@
-<div class="nav-buttons">
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
     <a href="{% url 'core:main_menu' %}" class="button">Главное меню</a>
     <a href="{% url 'qr_goods:qr_generator' %}" class="button">Создать QR товара</a>
     <a href="{% url 'qr_goods:show_products' %}" class="button">Все продукты</a>
-</div>
+
+    {% block content %}{% endblock %}
+</body>
+</html>

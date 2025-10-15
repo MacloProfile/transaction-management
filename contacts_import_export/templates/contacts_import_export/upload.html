@@ -1,0 +1,65 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="{% static 'contacts_import_export/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+  <header>
+    {% include 'core/navbar.html' %}
+  </header>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Импорт / Экспорт контактов</h1>
+      <p class="subtitle">Загрузите CSV / XLSX для массового создания контактов. Или экспортируйте текущие данные с портала.</p>
+    </div>
+
+    <div class="cards-row">
+      <section class="card">
+        <h2>Импорт</h2>
+        <form method="post" enctype="multipart/form-data" class="upload-form" action="{% url 'contacts_import_export:contacts_upload' %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Загрузить</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Экспорт</h2>
+        <form id="export-form" method="get" action="{% url 'contacts_import_export:contacts_export' %}" class="export-form">
+          <label for="format">Формат:</label>
+          <select id="format" name="format">
+            <option value="csv" selected>CSV</option>
+            <option value="xlsx">XLSX</option>
+          </select>
+
+          <label for="since">Период:</label>
+          <select id="since" name="since">
+            <option value="">Все</option>
+            <option value="1day">За последние 24 часа</option>
+          </select>
+
+          <div class="actions">
+            <button type="submit" class="btn btn-success">Экспортировать</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    {% if created or updated %}
+      <section class="card result">
+        <h2>Результат импорта</h2>
+        <p>Создано: {{ created|default:0 }}</p>
+        <p>Обновлено: {{ updated|default:0 }}</p>
+      </section>
+    {% endif %}
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Результат импорта</title>
+  <link rel="stylesheet" href="{% static 'contacts_import_export/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <header>
+    {% include 'core/navbar.html' %}
+  </header>
+
+  <div class="container">
+    <section class="card result">
+      <h1>Импорт завершён</h1>
+      <p class="summary">Импорт контактов выполнен успешно.</p>
+
+      <div class="stats">
+        <p><strong>Создано контактов:</strong> {{ created|default:0 }}</p>
+        <p><strong>Обновлено контактов:</strong> {{ updated|default:0 }}</p>
+      </div>
+
+      <div class="actions">
+        <a href="{% url 'contacts_import_export:contacts_upload' %}" class="btn btn-primary">Назад</a>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

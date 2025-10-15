@@ -35,6 +35,4 @@ def company_map(request):
             'address': address_line
         })
 
-    print(points)
-
     return render(request, 'company_map.html', {'points': points, 'company_count': len(points)})
